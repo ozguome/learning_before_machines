@@ -4,10 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime 
-!pip install researchpy
-import researchpy as rp
-import statsmodels.stats.api as sms
-from scipy import stats
 from datetime import date
 
 #upload from .xlsl
