@@ -1,4 +1,7 @@
 ## Converting 9 sales volume and percentage lists for 9 business units
+l_keeper = [list() for _ in range(8)]
+s_keeper = [0] * 8 
+lp_keeper = [list() for _ in range(8)]
 
 detailed_cust=list()
 detailed_cust=pd.DataFrame(detailed_cust,columns=["BU Anchor","BU Diamond","BU Direct Fastening","BU Fire Protection","BU Measuring Systems","BU Power Tools & Acc","BU Screw Fastening","BU Tool Services","Other"])
@@ -158,3 +161,7 @@ bu_percentage_per_customer.columns=["BU Anchor","BU Diamond","BU Direct Fastenin
 ## Calculating confidance intervals for Sales volume and Sales percentage for each customer
 
 rp.summary_cont(bu_sales_per_customer[["BU Anchor","BU Diamond","BU Direct Fastening","BU Fire Protection","BU Measuring Systems","BU Power Tools & Acc","BU Screw Fastening","BU Tool Services","Other"]].head(8))
+## Stats about sales per customer
+bu_sales_per_customer_head_8.describe().T
+
+bu_sales_per_customer[(bu_sales_per_customer["try"]>50000)&(bu_sales_per_customer["try"]<100000)].describe().T
