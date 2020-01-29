@@ -9,21 +9,22 @@ from datetime import date
 #upload from .xlsl
 an = pd.read_excel (r'C:\Users\ozguome\Desktop/Case Studies/Case Study ML/Keşifçi Veri Analizi/an_bc_karotsuz.xlsx') 
 
-#variable and column name setting
+#variable types and column name setting
 an["soldtocustomer"]=an["soldtocustomer"].apply(str)
 an["billno"]=an["billno"].apply(str)
 an["channel"]=an["channel"].apply(str)
 an["billday"]=pd.to_datetime(an["billday"],format='%d.%m.%Y')
 an["materialno"]=an["materialno"].apply(str)
-an.dtypes
+print(an.dtypes)
 
 #grouping customers by total value of sales annualy in descending order
 an_satıs_sıralama=an.groupby(by=["soldtocustomer"], as_index=False)['try'].sum().sort_values(by=["try"],ascending=False)
 an_satıs_sıralama=an_satıs_sıralama.reset_index(drop=True)
-an_satıs_sıralama
+print(an_satıs_sıralama.head())
 
 #visualisation of sales volumes of customers
-sns.kdeplot(an_satıs_sıralama["try"].head(54), shade=True, bw="silverman", color="red",gridsize=100)
+cust_num=54
+sns.kdeplot(an_satıs_sıralama["try"].head(cust_num), shade=True, bw="silverman", color="red",gridsize=100)
 
 #adding all customer invoice records to a descending order sales list by grouping for each customer invoices.
 #each element of list includes a dataframe with [total_invoices x 16] matrix and list is in descending sales order
@@ -40,5 +41,8 @@ len(cust_rank)
 plusfifty_material_mean_unit_price=list()
 for i in np.arange(0,55,1):
     plusfifty_material_mean_unit_price.append(cust_rank[i].groupby("materialno")["try"].sum()/cust_rank[i].groupby("materialno")["pc"].sum())
-plusfifty_material_mean_unit_price[1]
+# with "plusfifty_material_mean_unit_price" variable we can access customer's, which have +50k annual revenue, sales item's mean prices
+   customer_selection=0 
+    plusfifty_material_mean_unit_price[customer_selection]
+    
 
